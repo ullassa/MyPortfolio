@@ -130,7 +130,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Resume download endpoint
   app.get("/api/resume/download", (req, res) => {
-    const resumePath = path.join(process.cwd(), "public", "resume.pdf");
+    const resumePath = path.join(import.meta.dirname || process.cwd(), "..", "public", "resume.pdf");
     res.download(resumePath, "Ullas_SA_Resume.pdf", (err) => {
       if (err) {
         console.error("Resume download error:", err);
@@ -141,7 +141,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Resume preview endpoint
   app.get("/api/resume/preview", (req, res) => {
-    const resumePath = path.join(process.cwd(), "public", "resume.pdf");
+    const resumePath = path.join(import.meta.dirname || process.cwd(), "..", "public", "resume.pdf");
     res.sendFile(resumePath, (err) => {
       if (err) {
         console.error("Resume preview error:", err);
