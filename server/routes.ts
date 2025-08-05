@@ -1,11 +1,16 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import path from "path";
+import { fileURLToPath } from "url";
 import { contactMessageSchema } from "@shared/schema";
 import { z } from "zod";
 import { getGitHubStats } from "./services/github";
 import { getLeetCodeStats } from "./services/leetcode";
 import { sendEmail, createContactEmail } from "./services/email";
+
+// Get current directory in both CommonJS and ESM environments
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // In-memory storage for visitor stats (in production, use a database)
 let visitorStats = {
@@ -130,7 +135,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Resume download endpoint
   app.get("/api/resume/download", (req, res) => {
-    const resumePath = path.join(import.meta.dirname || process.cwd(), "..", "public", "resume.pdf");
+    const resumePath = path.join(__dirname, "..", "public", "resume.pdf");
     res.download(resumePath, "Ullas_SA_Resume.pdf", (err) => {
       if (err) {
         console.error("Resume download error:", err);
@@ -141,7 +146,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Resume preview endpoint
   app.get("/api/resume/preview", (req, res) => {
-    const resumePath = path.join(import.meta.dirname || process.cwd(), "..", "public", "resume.pdf");
+    const resumePath = path.join(__dirname, "..", "public", "resume.pdf");
     res.sendFile(resumePath, (err) => {
       if (err) {
         console.error("Resume preview error:", err);
