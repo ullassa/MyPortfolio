@@ -1,0 +1,115 @@
+FULL PORTFOLIO PROMPT WITH MULTIPLE PROJECTS
+
+Build me a personal portfolio website using the uploaded resume (ullas_resume.pdf) and the additional projects I’ll provide.
+
+🎨 Design & Theme
+Futuristic dark theme with glowing neon accents (purple, cyan, green).
+
+Use Framer Motion for smooth animations (fade-ins, hover scale, parallax).
+
+Add an interactive animated background (particles.js, gradient waves, or matrix effect).
+
+Responsive design for desktop, tablet, and mobile.
+
+Sticky navbar with smooth scroll and glowing active section indicator.
+
+📌 Sections
+Hero Section
+
+Name: Ullas S A
+
+Role: Computer Science and Engineering Student
+
+Typing animation with: “Frontend Developer | Java Programmer | DSA Enthusiast”
+
+Neon CTA button linking to Contact section.
+
+About Me
+
+Use content from Professional Summary in resume.
+
+Animated profile image or futuristic illustration.
+
+Skills
+
+Neon progress bars or glowing skill icons grouped as:
+
+Frontend: HTML, CSS, JavaScript, Tailwind CSS
+
+Backend: Node.js, Express.js
+
+Database: SQL, MongoDB
+
+Programming: Java, Python
+
+Tools: Git, GitHub
+
+Projects Gallery
+
+Create a dynamic grid gallery of projects with glowing hover cards.
+
+Each project card should include:
+
+Project Title
+
+Screenshot/Illustration
+
+Tech Stack
+
+Short Description
+
+GitHub / Live Demo Link
+
+Start with these projects from my resume:
+
+DSA Journey – DSA Practice & Analytics Manager
+
+Animal Herd Welfare Management System
+
+Custom Chat Bot – AI Conversation Interface
+
+Add placeholders so I can easily add more projects later.
+
+Education & Achievements
+
+Timeline layout with animation on scroll.
+
+Pull education details & achievements from resume.
+
+Resume Download
+
+Glowing button to download my PDF resume (ullas_resume.pdf).
+
+Contact Section
+
+Contact form with Name, Email, Message.
+
+Use SendGrid API to send messages to ullas200410@gmail.com.
+
+Show animated success/error notification.
+
+Hide SendGrid API key in .env.
+
+⚙️ Technical Requirements
+Framework: React + TailwindCSS
+
+Animations: Framer Motion
+
+Containerization: Docker
+
+Provide Dockerfile and docker-compose.yml so I can run it on any OS with docker-compose up.
+
+Documentation: Add a README.md with instructions for setup, running, and deployment.
+
+✨ Extra Touches
+Neon glow hover effects on all buttons, links, and project cards.
+
+Smooth scrolling transitions.
+
+Animated skill progress bars.
+
+Scroll-to-top button with a glowing animation.
+
+Footer with icons & links to my GitHub and LinkedIn.
+
+⚡ The site should be production-ready, easy to update with new projects, and fully cross-platform via Docker.
