@@ -4,9 +4,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { contactMessageSchema } from "@shared/schema";
 import { z } from "zod";
-import { getGitHubStats } from "./services/github";
-import { getLeetCodeStats } from "./services/leetcode";
+
 import { sendEmail, createContactEmail } from "./services/email";
+import fetch from "node-fetch";
 
 // Get current directory in both CommonJS and ESM environments
 const __filename = fileURLToPath(import.meta.url);
@@ -101,37 +101,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // LeetCode stats endpoint
-  app.get("/api/leetcode/:username", async (req, res) => {
-    try {
-      const { username } = req.params;
-      const stats = await getLeetCodeStats(username);
-      res.json(stats);
-    } catch (error) {
-      console.error("LeetCode API error:", error);
-      res.status(500).json({ 
-        error: "Failed to fetch LeetCode data",
-        message: "LeetCode stats temporarily unavailable" 
-      });
-    }
-  });
 
-  // Visitor stats endpoint
-  app.get("/api/visitor-stats", (req, res) => {
-    res.json(visitorStats);
-  });
+ 
 
-  // Increment visitor count
-  app.post("/api/visitor-increment", (req, res) => {
-    visitorStats.totalVisitors += 1;
-    visitorStats.todayVisitors += 1;
-    visitorStats.pageViews += 1;
-    
-    // Randomly update online users (between 1-8)
-    visitorStats.onlineUsers = Math.floor(Math.random() * 8) + 1;
-    
-    res.json({ success: true, totalVisitors: visitorStats.totalVisitors });
-  });
 
   // Resume download endpoint
   app.get("/api/resume/download", (req, res) => {
@@ -158,3 +130,4 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
   return httpServer;
 }
+

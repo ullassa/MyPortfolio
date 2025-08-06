@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { registerRoutes } from "./routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
 
 const app = express();
 app.use(express.json());
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
@@ -62,8 +62,31 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
-  server.listen(port, host, () => {
-    log(`serving on port ${port}`);
-  });
+  
+  // Try to bind to localhost first, fallback if needed
+  const startServer = () => {
+    server.listen(port, 'localhost', () => {
+      log(`serving on localhost:${port}`);
+    }).on('error', (err: any) => {
+      if (err.code === 'ENOTSUP' || err.code === 'EADDRINUSE') {
+        log(`Failed to bind to localhost:${port}, trying 127.0.0.1:${port}`);
+        server.listen(port, '127.0.0.1', () => {
+          log(`serving on 127.0.0.1:${port}`);
+        }).on('error', (err2: any) => {
+          if (err2.code === 'ENOTSUP' || err2.code === 'EADDRINUSE') {
+            log(`Failed to bind to 127.0.0.1:${port}, trying without host specification`);
+            server.listen(port, () => {
+              log(`serving on port ${port}`);
+            });
+          } else {
+            throw err2;
+          }
+        });
+      } else {
+        throw err;
+      }
+    });
+  };
+  
+  startServer();
 })();
