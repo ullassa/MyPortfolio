@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { NeonButton } from "@/components/ui/neon-button";
-import { ChevronDown, Rocket } from "lucide-react";
-import profileImage from "@assets/WhatsApp Image 2025-08-04 at 17.54.21_b546f4ac_1754310269115.jpg";
+import { ChevronDown, Rocket, User } from "lucide-react";
 
 const roles = [
   "Frontend Developer",
@@ -29,19 +28,16 @@ export function Hero() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Profile Image */}
+          {/* Profile Avatar */}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-40 h-40 mx-auto mb-8 relative"
           >
-            <img 
-              src={profileImage}
-              alt="Ullas S A" 
-              className="w-full h-full object-cover rounded-full neon-border animate-glow"
-              data-testid="profile-image"
-            />
+            <div className="w-full h-full bg-gradient-to-br from-purple-500 to-blue-600 rounded-full neon-border animate-glow flex items-center justify-center">
+              <User size={80} className="text-white" />
+            </div>
           </motion.div>
           
           {/* Name */}
