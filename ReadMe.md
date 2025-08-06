@@ -5,6 +5,7 @@
 This is a modern, futuristic portfolio website built for Ullas S A, a Computer Science Engineering student. The application showcases his skills, projects, education, and achievements through an interactive, dark-themed interface with neon accents and smooth animations. The portfolio features a full-stack architecture with both client-side rendering and server-side API endpoints.
 
 **🚀 Live Demo**: Deployed on Render
+https://myportfolio-8p4w.onrender.com/
 
 ## User Preferences
 
@@ -80,3 +81,115 @@ Currently implements a basic user management system:
 - **Connection Pooling**: Built-in connection management for database operations
 
 The architecture is designed to be scalable and maintainable, with clear separation of concerns between frontend and backend. The modular approach allows for easy feature additions and modifications while maintaining code quality and performance.
+
+## Architecture & Functional Flow
+
+### 🏗️ Project Architecture
+MyPortfolio/ ├── client/ # Frontend (React + Vite) │ ├── src/ │ │ ├── components/ # React components │ │ │ ├── ui/ # Reusable UI components (shadcn/ui) │ │ │ ├── Hero.tsx # Landing section │ │ │ ├── About.tsx # About section │ │ │ ├── Skills.tsx # Skills showcase │ │ │ ├── Projects.tsx# Projects portfolio │ │ │ ├── Education.tsx# Education timeline │ │ │ ├── Contact.tsx # Contact form │ │ │ └── ... # Other components │ │ ├── hooks/ # Custom React hooks │ │ ├── lib/ # Utilities and configurations │ │ └── pages/ # Page components │ └── index.html # Entry point ├── server/ # Backend (Express.js) │ ├── index.ts # Server entry point │ ├── routes.ts # API routes │ ├── vite.ts # Vite integration │ └── services/ # Business logic │ ├── email.ts # Email service (SendGrid) │ ├── github.ts # GitHub API integration │ └── leetcode.ts # LeetCode stats ├── shared/ # Shared types and schemas │ └── schema.ts # Zod validation schemas └── public/ # Static assets
+
+
+### 🔄 Functional Flow
+
+#### 1. **Application Startup**
+Server starts (Express.js)
+Environment detection (development/production)
+Middleware setup (CORS, JSON parsing, logging)
+API routes registration
+Static file serving configuration
+Port binding (localhost for dev, 0.0.0.0 for production)
+
+
+#### 2. **Client-Side Flow**
+User Request → Vite Dev Server/Static Files → React App → Component Tree ↓ Components: Hero → About → Skills → Projects → Education → Contact ↓ State Management: React Query + Custom Hooks ↓ UI Rendering: Tailwind CSS + Framer Motion + shadcn/ui
+
+
+#### 3. **API Endpoints Flow**
+/api/contact → Contact form submission → SendGrid email service /api/github-stats → GitHub API integration → Repository statistics /api/leetcode-stats → LeetCode API scraping → Coding statistics /api/visitor-count → In-memory storage → Visitor analytics
+
+
+#### 4. **Data Flow Architecture**
+Frontend (React) ←→ API Layer (Express) ←→ External Services ↓ ↓ ↓
+
+User interactions - Route handling - SendGrid (Email)
+State management - Validation - GitHub API
+UI updates - Error handling - LeetCode API
+Animations - Response format - Analytics
+
+### 🛠️ Technology Stack
+
+#### **Frontend**
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS + Custom CSS
+- **Animations**: Framer Motion
+- **UI Components**: shadcn/ui (Radix UI + Tailwind)
+- **Icons**: Lucide React
+- **State Management**: React Query (TanStack Query)
+- **Form Handling**: React Hook Form + Zod validation
+
+#### **Backend**
+- **Runtime**: Node.js
+- **Framework**: Express.js with TypeScript
+- **Validation**: Zod schemas
+- **Email Service**: SendGrid API
+- **HTTP Client**: node-fetch
+- **Development**: tsx for TypeScript execution
+
+#### **Build & Deployment**
+- **Bundler**: Vite (client) + esbuild (server)
+- **Package Manager**: npm
+- **Version Control**: Git
+- **Deployment**: Render/Railway/Vercel compatible
+- **Environment**: Cross-platform (Windows/Linux/macOS)
+
+### 🔧 Key Features
+
+#### **Interactive Portfolio Sections**
+- **Hero Section**: Animated introduction with typing effects
+- **About**: Personal introduction and career objectives
+- **Skills**: Technical skills with animated progress bars
+- **Projects**: Showcase of development projects with GitHub links
+- **Education**: Academic timeline and achievements
+- **Contact**: Functional contact form with email integration
+
+#### **Dynamic Data Integration**
+- **GitHub Statistics**: Real-time repository and contribution data
+- **LeetCode Stats**: Coding challenge statistics and progress
+- **Visitor Analytics**: Page view and visitor tracking
+- **Contact System**: Email notifications via SendGrid
+
+#### **Performance & UX**
+- **Responsive Design**: Mobile-first responsive layout
+- **Dark Theme**: Modern dark UI with neon accents
+- **Smooth Animations**: Framer Motion powered transitions
+- **Fast Loading**: Vite-optimized bundle splitting
+- **SEO Optimized**: Meta tags and semantic HTML
+
+### 🚀 Development Workflow
+
+#### **Local Development**
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run check        # TypeScript type checking
+
+
+Environment Configuration
+
+Development: localhost:5000 (Vite dev server + API proxy)
+Production:  0.0.0.0:PORT (Static files + API server)
+
+
+Deployment Process
+1. Code push to GitHub
+2. Automatic build trigger
+3. Install dependencies (npm ci)
+4. Build client (vite build)
+5. Build server (esbuild)
+6. Copy static assets
+7. Start production server
+8. Health check and go live
+
+
+This gives a comprehensive overview of your portfolio's architecture and functionality that you can add to your README!
