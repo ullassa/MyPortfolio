@@ -4,6 +4,8 @@
 
 This is a modern, futuristic portfolio website built for Ullas S A, a Computer Science Engineering student. The application showcases his skills, projects, education, and achievements through an interactive, dark-themed interface with neon accents and smooth animations. The portfolio features a full-stack architecture with both client-side rendering and server-side API endpoints.
 
+**🚀 Live Demo**: Deployed on Render
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
