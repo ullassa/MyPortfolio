@@ -63,30 +63,41 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
   
-  // Try to bind to localhost first, fallback if needed
-  const startServer = () => {
-    server.listen(port, 'localhost', () => {
-      log(`serving on localhost:${port}`);
-    }).on('error', (err: any) => {
-      if (err.code === 'ENOTSUP' || err.code === 'EADDRINUSE') {
-        log(`Failed to bind to localhost:${port}, trying 127.0.0.1:${port}`);
-        server.listen(port, '127.0.0.1', () => {
-          log(`serving on 127.0.0.1:${port}`);
-        }).on('error', (err2: any) => {
-          if (err2.code === 'ENOTSUP' || err2.code === 'EADDRINUSE') {
-            log(`Failed to bind to 127.0.0.1:${port}, trying without host specification`);
-            server.listen(port, () => {
-              log(`serving on port ${port}`);
-            });
-          } else {
-            throw err2;
-          }
-        });
-      } else {
-        throw err;
-      }
-    });
-  };
+  // In production (like Render), bind to 0.0.0.0 so it's accessible from internet
+  // In development, use localhost with fallbacks for Windows compatibility
+  const isProduction = process.env.NODE_ENV === 'production';
   
-  startServer();
+  if (isProduction) {
+    // Production: bind to 0.0.0.0 so Render can access it
+    server.listen(port, '0.0.0.0', () => {
+      log(`serving on 0.0.0.0:${port}`);
+    });
+  } else {
+    // Development: use localhost with fallbacks for Windows
+    const startServer = () => {
+      server.listen(port, 'localhost', () => {
+        log(`serving on localhost:${port}`);
+      }).on('error', (err: any) => {
+        if (err.code === 'ENOTSUP' || err.code === 'EADDRINUSE') {
+          log(`Failed to bind to localhost:${port}, trying 127.0.0.1:${port}`);
+          server.listen(port, '127.0.0.1', () => {
+            log(`serving on 127.0.0.1:${port}`);
+          }).on('error', (err2: any) => {
+            if (err2.code === 'ENOTSUP' || err2.code === 'EADDRINUSE') {
+              log(`Failed to bind to 127.0.0.1:${port}, trying without host specification`);
+              server.listen(port, () => {
+                log(`serving on port ${port}`);
+              });
+            } else {
+              throw err2;
+            }
+          });
+        } else {
+          throw err;
+        }
+      });
+    };
+    
+    startServer();
+  }
 })();
