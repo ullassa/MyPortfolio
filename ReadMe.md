@@ -7,7 +7,7 @@ This is a modern, futuristic portfolio website built for Ullas S A, a Computer S
 **🚀 Live Demo**: Deployed on Render
 https://myportfolio-8p4w.onrender.com/
 
-## User Preferences
+## User Preference
 
 Preferred communication style: Simple, everyday language.
 
